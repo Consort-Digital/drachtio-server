@@ -1563,7 +1563,10 @@ namespace drachtio {
                     assert(false) ;
                 }
             }
-            clearRIP( orq ) ;     
+            if(method != sip_method_invite || (method == sip_method_invite && statusCode >= 200)){
+                DR_LOG(log_debug) << "SipDialogController::processResponseInsideDialog: Calling clearRIP"  ;
+                clearRIP( orq ) ;  
+            }
             msg_destroy(msg) ;   // releases reference
         }
         else {
